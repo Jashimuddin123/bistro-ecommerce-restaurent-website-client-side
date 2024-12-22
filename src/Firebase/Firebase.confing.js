@@ -7,15 +7,14 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_apiKey,
-  authDomain: import.meta.env.VITE_authDomain ,
-  projectId: import.meta.env.VITE_projectId,
-  storageBucket: import.meta.env.VITE_storageBucket,
-  messagingSenderId: import.meta.env.VITE_messagingSenderId,
-  appId: import.meta.env.VITE_appId,
-  measurementId: import.meta.env.VITE_measurementId
+  apiKey: "AIzaSyCJMJogAb1L-5aTGQ2EbNiEZ22ShF8ftVw",
+  authDomain: "bistro-ecommerce-website-d3fcd.firebaseapp.com",
+  projectId: "bistro-ecommerce-website-d3fcd",
+  storageBucket: "bistro-ecommerce-website-d3fcd.firebasestorage.app",
+  messagingSenderId: "397314093379",
+  appId: "1:397314093379:web:bfe9b31285219fef447ff6",
+  measurementId: "G-Z2V0Q229ET"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-//  export const analytics = getAnalytics(app);

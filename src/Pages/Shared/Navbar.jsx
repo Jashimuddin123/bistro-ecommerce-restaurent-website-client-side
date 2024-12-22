@@ -1,7 +1,16 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { CiShoppingCart } from "react-icons/ci";
+import UseCart from "../../Hooks/UseCart";
 
 
 const Navbar = () => {
+  const {user, logOut}=useContext(AuthContext)
+  const [cart]=UseCart()
+  const handleLogout = () => {
+    logOut()
+  }
   const navlinks = (
     <ul className="flex space-x-4">
       <li>
@@ -20,13 +29,33 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
+      <button className="btn btn-sm">
+    <NavLink to="dashboard/cart">
+    <CiShoppingCart  className="text-2xl"/>
+     <div className="badge badge-secondary">{cart.length}</div>
+   
+    </NavLink>
+    
+
+      </button>
+      </li>
+    {
+      user ? <>
+          <li>
+          <button onClick={handleLogout} className="btn btn-active btn-neutral">Logout</button>
+
+          </li>
+      </> :
+      <>
+        <li>
         <NavLink to="/login" className="px-4 py-1 rounded text-white">
           Login
         </NavLink>
-      
       </li>
-      <li>  <NavLink to="/signup" className="px-4 py-1 rounded text-white">
-         SignUp
+      </>
+    }
+      <li>  <NavLink to="/secret" className="px-4 py-1 rounded text-white">
+         Secret
         </NavLink></li>
     </ul>
   );

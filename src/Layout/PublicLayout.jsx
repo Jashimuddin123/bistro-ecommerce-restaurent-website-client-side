@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import Navbar from "../Pages/Shared/Navbar";
-
+// import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 
 const PublicLayout = () => {
@@ -13,6 +13,7 @@ const PublicLayout = () => {
           
             {noHeaderFooter || <Navbar></Navbar>}
             <Outlet/>
+            {/* <TanStackRouterDevtools /> */}
          
         </div>
     );

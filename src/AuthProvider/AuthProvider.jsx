@@ -1,59 +1,51 @@
-import { createContext, useEffect, useState } from "react";
-import { 
-    getAuth, 
-    onAuthStateChanged, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword, 
-    signOut 
-} from "firebase/auth";
+import { createContext , useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { app } from "../Firebase/Firebase.confing";
 
-// Create the context
-export const AuthContext = createContext();
-const auth = getAuth(app);
 
-const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
 
-    // Listen for authentication state changes
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
-        });
-        return () => unsubscribe();
-    }, []);
+export const AuthContext = createContext(null)     
+ const auth = getAuth(app)
+const AuthProvider = ({children}) => {
+    const [user, setUser] = useState(null)
+    const [loading, setLoading]= useState(true)
 
-    // Create a new user
-    const createUser = (email, password) => {
-        setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
-    };
+// user login
+const createUser = (email, password)=>{
+    setLoading(true)
+    return createUserWithEmailAndPassword(auth, email, password)
+}
 
-    // Login an existing user
-    const login = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    };
+const login =(email, password)=>{
+    setLoading(true)
+    return signInWithEmailAndPassword(auth, email, password)
+}
 
-    // Logout the current user
-    const logout = () => {
-        setLoading(true);
-        return signOut(auth);
-    };
+const logOut = ()=>{
+    setLoading(true)
+    return signOut(auth)
+}
+useEffect(()=>{
+ const unsubscrie=onAuthStateChanged(auth, currentUser=>{
+        setUser(currentUser);
+        setLoading(false)
+    })
+    return() =>{
+        return  unsubscrie();
+    }
+},[])
+ 
 
-    // Context value to share with child components
-    const authContextValue = {
+    const authInfo = {
         user,
         loading,
         createUser,
         login,
-        logout,
-    };
+        logOut
 
+    }
     return (
-        <AuthContext.Provider value={authContextValue}>
+        <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );
